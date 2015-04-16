@@ -12,3 +12,7 @@ unsigned int mod = 4; //aplica-se a função mod mod e se o resultado for menor 
 unsigned int funcaoHash(unsigned int key) {
 	return ((key%mod)<next)?(key%mod):(key%(mod*2));
 }
+
+dataEntry searchEntry(FILE* indice, unsigned int key){
+	return (dataEntry){1,1};
+}
