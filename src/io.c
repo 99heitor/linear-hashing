@@ -1,6 +1,8 @@
 #include "estruturas.h"
 #include "io.h"
 
+
+
 void NewIndexFile (){
 
 	FILE* arquivozinho;
