@@ -7,7 +7,7 @@ void NewIndexFile (){
 	int buffer[6];
 	char buffer2[256*4];
 
-	arquivozinho = fopen ("sgbd", "wb"); //cria arquivo "sgbd" que será nosso arquivo de índice
+	arquivozinho = fopen ("indice", "wb"); //cria arquivo "sgbd" que será nosso arquivo de índice
 
 	buffer[0] = 70; //ratio
 	buffer[1] = 4;	//nBuckets

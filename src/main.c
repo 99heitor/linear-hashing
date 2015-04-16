@@ -7,7 +7,7 @@ int main(){
 	//printf("O tamanho da coisa é: %zu \n",sizeof(bucket));
 	NewIndexFile();
 
-	FILE* indice = fopen ("sgbd", "wb");
+	FILE* indice = fopen ("indice", "wb");
 	bucket* teste;
 
 
