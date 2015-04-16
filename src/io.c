@@ -1,8 +1,6 @@
 #include "estruturas.h"
 #include "io.h"
 
-
-
 void NewIndexFile (){
 
 	FILE* arquivozinho;
@@ -28,19 +26,19 @@ void NewIndexFile (){
 }
 
 
-bucket* recuperarBucket(FILE* indice, int bucketNumber) {
+bucket* recuperarBucket(FILE* indice, unsigned int bucketNumber) {
 
 	rewind(indice);
 
-	int byte = HEADER_SIZE + bucketNumber*256;
+	unsigned int byte = HEADER_SIZE + bucketNumber*256;
 	fseek(indice,byte,SEEK_SET);	
 
 	bucket* recuperado;
 	recuperado = malloc(sizeof(bucket));
 
 	for (int i=0;i<28;i++) {
-		fread (&(recuperado->entries[i].rid),4,1,indice);
 		fread (&(recuperado->entries[i].key),4,1,indice);
+		fread (&(recuperado->entries[i].rid),4,1,indice);
 	}
 	for (int i=0;i<28;i++)
 		fread (&(recuperado->freeSpace[i]),1,1,indice);

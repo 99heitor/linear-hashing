@@ -1,5 +1,3 @@
-
-#include "estruturas.h"
 #include "hash.h"
 #include "io.h"
 
@@ -7,7 +5,7 @@ int main(){
 	//printf("O tamanho da coisa é: %zu \n",sizeof(bucket));
 	NewIndexFile();
 
-	FILE* indice = fopen ("indice", "wb");
+	FILE* indice = fopen ("indice", "rb");
 	bucket* teste;
 
 
@@ -16,7 +14,7 @@ int main(){
 
 
 	for (int i=0;i<28;i++){
-		printf ("%d",teste->entries[i].rid);
+		printf ("%d\n",teste->entries[i].rid);
 	}
 
 	//printf("oi\n");
