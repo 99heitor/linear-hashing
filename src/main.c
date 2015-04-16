@@ -16,7 +16,7 @@ int main(){
 
 
 	for (int i=0;i<28;i++){
-		printf ("%d");
+		printf ("%d",teste->entries[i].rid);
 	}
 
 	//printf("oi\n");
