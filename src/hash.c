@@ -30,3 +30,7 @@ void insertEntry(FILE* indice, dataEntry new_entry){
 		i++;
 	}
 }
+
+dataEntry searchEntry(FILE* indice, unsigned int key){
+	return (dataEntry){1,1};
+}
