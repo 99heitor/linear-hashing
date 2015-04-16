@@ -5,4 +5,6 @@
 
 
 bucket* recuperarBucket(FILE*, unsigned int);
+unsigned int entryPosition(unsigned int, int);
+
 void NewIndexFile();

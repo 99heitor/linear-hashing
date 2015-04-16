@@ -12,10 +12,10 @@ unsigned int mod = 4; //aplica-se a função mod mod e se o resultado for menor 
 unsigned int funcaoHash(unsigned int key) {
 	return ((key%mod)<next)?(key%mod):(key%(mod*2));
 }
-
+/*
 void insertEntry(FILE* indice, dataEntry new_entry){
 	int i;
-	int nbucket = funcaoHash(new_entry.key)
+	int nbucket = funcaoHash(new_entry.key);
 	int buffer[2];
 	bucket* new_entry_bucket;
 	new_entry_bucket = recuperarBucket(indice, nbucket);
@@ -30,7 +30,12 @@ void insertEntry(FILE* indice, dataEntry new_entry){
 		i++;
 	}
 }
-
-dataEntry searchEntry(FILE* indice, unsigned int key){
-	return (dataEntry){1,1};
+*/
+dataEntry* searchEntry(FILE* indice, unsigned int key){
+	bucket* temp = recuperarBucket(indice,0);
+	for(int i=0;i<28;i++){
+		if (temp->entries[i].key == key)
+			return (temp->entries);
+	}
+	return &((dataEntry){0,0});
 }

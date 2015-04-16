@@ -1,5 +1,9 @@
-#include "estruturas.h"
+#include "estruturas.h"	
 #include "io.h"
+
+unsigned int entryPosition(unsigned int bucketPos, int entryPos) {
+	return (HEADER_SIZE + bucketPos*(sizeof(bucket)) + entryPos*sizeof(dataEntry));
+}
 
 void NewIndexFile (){
 
@@ -30,7 +34,7 @@ bucket* recuperarBucket(FILE* indice, unsigned int bucketNumber) {
 
 	rewind(indice);
 
-	unsigned int byte = HEADER_SIZE + bucketNumber*256;
+	unsigned int byte = entryPosition(bucketNumber,0);
 	fseek(indice,byte,SEEK_SET);	
 
 	bucket* recuperado;
@@ -47,3 +51,4 @@ bucket* recuperarBucket(FILE* indice, unsigned int bucketNumber) {
 
 	return recuperado;
 }
+		
