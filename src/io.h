@@ -3,4 +3,5 @@
 #define HEADER_SIZE 24
 
 
-bucket* recuperarBucket(FILE* indice, int bucketNumber);
+bucket* recuperarBucket(FILE*, int);
+void NewIndexFile();
