@@ -13,21 +13,21 @@ unsigned int funcaoHash(unsigned int key) {
 	return ((key%mod)<next)?(key%mod):(key%(mod*2));
 }
 
-void insertEntry(FILE** indice, dataEntry new_entry){
+void insertEntry(FILE* indice, dataEntry new_entry){
 	int i = 0,found = 0;
 
 	unsigned int nbucket = funcaoHash(new_entry.key);
 	unsigned int buffer[2];
 
 	bucket* new_entry_bucket;
-	new_entry_bucket = recuperarBucket(*indice, nbucket);
+	new_entry_bucket = recuperarBucket(indice, nbucket);
 
 	while ((i<28)&&(!found)) {
 		if (new_entry_bucket->freeSpace[i] == 0){
-			fseek(*indice,entryPosition(nbucket,i),SEEK_SET);
+			fseek(indice,entryPosition(nbucket,i),SEEK_SET);
 			buffer[0] = new_entry.key;
 			buffer[1] = new_entry.rid;
-			fwrite(buffer,4,2,*indice);
+			fwrite(buffer,4,2,indice);
 			found=1;
 		}
 		i++;
@@ -35,7 +35,7 @@ void insertEntry(FILE** indice, dataEntry new_entry){
 }
 
 dataEntry* searchEntry(FILE* indice, unsigned int key){
-	bucket* temp = recuperarBucket(indice,0);
+	bucket* temp = recuperarBucket(indice,funcaoHash(key));
 	for(int i=0;i<28;i++){
 		if (temp->entries[i].key == key)
 			return (temp->entries);

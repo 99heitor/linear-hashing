@@ -2,11 +2,10 @@
 #include "io.h"
 
 int main(){
-	dataEntry testEntry;
-	testEntry.key = 50;
-	testEntry.rid = 123;
+	dataEntry *testEntry;
+	
 	//printf("O tamanho da coisa é: %zu \n",sizeof(bucket));
-	NewIndexFile();
+	//NewIndexFile();
 
 	FILE* indice = fopen ("indice", "r+b");
 	
@@ -17,8 +16,9 @@ int main(){
 
 	//printf("oi\n");
 
-	insertEntry(&indice, testEntry);
-
+	//insertEntry(indice, testEntry);
+	testEntry = searchEntry(indice,50);
+	printf("%u %u\n",testEntry->key,testEntry->rid);
 	fclose(indice);
 	return 0;
 }
