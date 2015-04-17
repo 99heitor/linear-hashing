@@ -11,6 +11,9 @@ int main(){
 
 	FILE* indice = fopen ("indice", "r+b");
 	
+	for (int i=0;i<1;i++){
+		insertEntry((dataEntry){12,141},0);
+	}
 
 	/*for (int i=0;i<28;i++){
 		printf ("%d\n",teste->entries[i].rid);

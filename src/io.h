@@ -12,7 +12,7 @@ unsigned int header[7];
 //usedSlots: aumenta em 1 quando insere entry 
 //allSlots: aumenta em 28 quando splitar
 //mod: aplica-se a função mod mod e se o resultado for menor que next, aplicar a função mod 2*mod
-//firstFree: primeiro overflow livre no arquivo "overflow"
+//nextFree: próximo overflow livre no arquivo "overflow"
 
 bucket* recuperarBucket(unsigned int,int);
 void escreverBucket (unsigned int, bucket*,int);
