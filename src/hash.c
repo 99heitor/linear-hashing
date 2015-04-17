@@ -63,6 +63,7 @@ void insertEntry(FILE* indice, FILE* overflow, dataEntry* new_entry) {
 
 	header[3]++;
 	updateHeader(indice);
+	split(indice);
 }
 
 dataEntry* searchEntry(FILE* indice,unsigned int key,int troca){
@@ -74,9 +75,9 @@ dataEntry* searchEntry(FILE* indice,unsigned int key,int troca){
 	return &((dataEntry){0,0});
 }
 
-void split(){ //a treta
+void split(FILE* indice){ //a treta
 	if (((float)header[3]/(float)header[4])*100 > header[0]) {
-		bucket *bucketSplitado = recuperarBucket(header[2],0);
+		bucket *bucketSplitado = recuperarBucket(indice,header[2],0);
 		bucket *bucketBrother = malloc(sizeof(bucket));
 		int terminei;
 		while (!terminei) {
@@ -93,11 +94,11 @@ void split(){ //a treta
 				
 			}
 			if ((bucketSplitado->overflow)!=0)
-					bucketSplitado = recuperarBucket(bucketSplitado->overflow,1);
+					bucketSplitado = recuperarBucket(indice,bucketSplitado->overflow,1);
 			else
 				terminei = 1;
 		}
-		escreverBucket((header[1]+header[2]),bucketBrother,0);
+		escreverBucket(indice,(header[1]+header[2]),bucketBrother,0);
 		header[4]+=28;
 		header[2] = ((header[2]+1)%header[1]);
 		if (header[2] == 0){
