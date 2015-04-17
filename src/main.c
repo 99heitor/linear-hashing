@@ -19,7 +19,7 @@ int main(){
 
 	//printf("oi\n");
 
-for (int i = 0; i < 26; ++i)
+for (int i = 0; i < 260; ++i)
 {
 	/* code */
 
