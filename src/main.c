@@ -6,10 +6,10 @@ int main(){
 	//dataEntry* testEntry;
 
 	
-	//NewIndexFile();
+	NewIndexFile();
 
 
-	//FILE* indice = fopen ("indice", "r+b");
+	FILE* indice = fopen ("indice", "r+b");
 	
 
 	/*for (int i=0;i<28;i++){
@@ -23,7 +23,7 @@ int main(){
 	//testEntry = searchEntry(indice,50);
 	//printf("%u %u\n",testEntry->key,testEntry->rid);
 
-	//fclose(indice);
+	fclose(indice);
 
 	return 0;
 }

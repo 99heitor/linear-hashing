@@ -3,6 +3,13 @@
 
 unsigned int header[] = {70,4,0,0,112,4,0};
 
+
+void updateHeader() {
+	rewind(indice);
+	fwrite(header, 4, 7, indice); //escreve irformações do header no arquivo
+}
+
+
 unsigned int entryPosition(unsigned int bucketPos, int entryPos, int troca) {	
 	if (!troca)
 		return (HEADER_SIZE + bucketPos*(sizeof(bucket)) + entryPos*sizeof(dataEntry));
@@ -31,7 +38,7 @@ void NewIndexFile (){
 }
 
 
-bucket* recuperarBucket(FILE* indice, unsigned int bucketNumber,int troca) {
+bucket* recuperarBucket(unsigned int bucketNumber,int troca) {
 
 	unsigned int byte = entryPosition(bucketNumber,0,troca);
 
@@ -52,7 +59,7 @@ bucket* recuperarBucket(FILE* indice, unsigned int bucketNumber,int troca) {
 	return recuperado;
 }
 		
-void escreverBucket (FILE* indice, unsigned int bucketNumber, bucket* escrito,int troca) {
+void escreverBucket (unsigned int bucketNumber, bucket* escrito,int troca) {
 	fseek(indice,entryPosition(bucketNumber,0,troca),SEEK_SET);	
 	for (int i=0;i<28;i++) {
 		fwrite (&(escrito->entries[i].key),4,1,indice);
