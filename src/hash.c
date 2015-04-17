@@ -17,18 +17,17 @@ void insertEntry(FILE* indice, dataEntry new_entry){
 	int i = 0,found = 0;
 
 	unsigned int nbucket = funcaoHash(new_entry.key);
-	unsigned int buffer[2];
 
 	bucket* new_entry_bucket;
 	new_entry_bucket = recuperarBucket(indice, nbucket);
 
 	while ((i<28)&&(!found)) {
 		if (new_entry_bucket->freeSpace[i] == 0){
-			fseek(indice,entryPosition(nbucket,i),SEEK_SET);
-			buffer[0] = new_entry.key;
-			buffer[1] = new_entry.rid;
-			fwrite(buffer,4,2,indice);
-			found=1;
+			new_entry_bucket->entries[i].key = new_entry.key;
+			new_entry_bucket->entries[i].rid = new_entry.rid;
+			new_entry_bucket->freeSpace[i] = 1;
+			escreverBucket(indice, nbucket, new_entry_bucket);
+			found = 1;	
 		}
 		i++;
 	}
