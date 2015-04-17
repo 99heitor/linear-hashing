@@ -32,8 +32,6 @@ void NewIndexFile (){
 
 bucket* recuperarBucket(FILE* indice, unsigned int bucketNumber) {
 
-	rewind(indice);
-
 	unsigned int byte = entryPosition(bucketNumber,0);
 	fseek(indice,byte,SEEK_SET);	
 
@@ -52,3 +50,14 @@ bucket* recuperarBucket(FILE* indice, unsigned int bucketNumber) {
 	return recuperado;
 }
 		
+void escreverBucket (FILE* indice, unsigned int bucketNumber, bucket escrito) {
+	fseek(indice,entryPosition(bucketNumber,0),SEEK_SET);	
+	for (int i=0;i<28;i++) {
+		fwrite (&(recuperado->entries[i].key),4,1,indice);
+		fwrite (&(recuperado->entries[i].rid),4,1,indice);
+	}
+	for (int i=0;i<28;i++)
+		fwrite (&(recuperado->freeSpace[i]),1,1,indice);
+
+	fwrite(&(recuperado->overflow),4,1,indice);
+}
