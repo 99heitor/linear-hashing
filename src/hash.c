@@ -69,7 +69,9 @@ void insertEntry(FILE* indice, FILE* overflow, dataEntry* new_entry) {
 	}
 	if (!found){
 		while(!consegui) {
+			printf("oi\n");
 			if(new_entry_bucket->overflow == 0){	//se não existir bucket overflow
+				printf("oi2\n");
 				new_overflow = malloc(sizeof(bucket));
 				new_overflow->entries[0].key = new_entry->key;
 				new_overflow->entries[0].rid = new_entry->rid;
@@ -80,14 +82,21 @@ void insertEntry(FILE* indice, FILE* overflow, dataEntry* new_entry) {
 					new_overflow->freeSpace[j] = 0;
 				}
 				new_overflow->overflow = 0;
+<<<<<<< HEAD
 				new_entry_bucket->overflow = header[6];
 				escreverBucket(indice,nbucket,new_entry_bucket,0);
+=======
+				printf("%u\n",new_entry_bucket->overflow );
+				new_entry_bucket->overflow = 1;
+				printf("%u\n",new_entry_bucket->overflow );
+>>>>>>> 9c2c850430f286fc99c9345301d908d15a9a953c
 				escreverBucket(overflow, header[6],new_overflow,1);
 				header[6]++;
 				updateHeader(indice);
 				consegui = 1;
 			}
 			else{		//se existir bucket overflow
+				printf("oi3\n");
 				nOverflow = new_entry_bucket->overflow;
 				new_entry_bucket = recuperarBucket(overflow, new_entry_bucket->overflow,1);
 				i=0;
@@ -109,7 +118,6 @@ void insertEntry(FILE* indice, FILE* overflow, dataEntry* new_entry) {
 
 	header[3]++;
 	updateHeader(indice);
-	split(indice);
 }
 
 dataEntry* searchEntry(FILE* indice,unsigned int key,int troca){
@@ -121,36 +129,21 @@ dataEntry* searchEntry(FILE* indice,unsigned int key,int troca){
 	return &((dataEntry){0,0});
 }
 
-void split(FILE* indice){ //a treta
-	if (((float)header[3]/(float)header[4])*100 > header[0]) {
-		bucket *bucketSplitado = recuperarBucket(indice,header[2],0);
-		bucket *bucketBrother = malloc(sizeof(bucket));
-		int terminei;
-		while (!terminei) {
-			for (int i=0,j=0;((i<28)&&(j<28));i++) {
-				if ((bucketSplitado->entries[i].key)%((header[5])*2) != header[2])	 {
-					bucketBrother->entries[j] = bucketSplitado->entries[i];
-					bucketBrother->freeSpace[j] = 1;
-					j++;
-
-					bucketSplitado->entries[i].key = 0;
-					bucketSplitado->entries[i].rid = 0;
-					bucketSplitado->freeSpace[i] = 0;
-				}
-				
-			}
-			if ((bucketSplitado->overflow)!=0)
-					bucketSplitado = recuperarBucket(indice,bucketSplitado->overflow,1);
-			else
-				terminei = 1;
+void removeEntry(FILE* indice, unsigned int key, int troca) {
+	bucket* temp = recuperarBucket(indice, funcaoHash(key),troca);
+	for(int i=0;i<28;i++){
+		if (temp->entries[i].key == key){
+			temp->entries[i].key = 0;
+			temp->entries[i].rid = 0;
+			break;
 		}
-		escreverBucket(indice,(header[1]+header[2]),bucketBrother,0);
-		header[4]+=28;
-		header[2] = ((header[2]+1)%header[1]);
-		if (header[2] == 0){
-			header[5] = header[5]*2;
-			header[1] = header[1]*2;
-		}
+		escreverBucket(indice, funcaoHash(key), temp, 0);
 	}
+<<<<<<< HEAD
 	updateHeader(indice);
+=======
+	//return &((dataEntry){0,0});
+>>>>>>> 9c2c850430f286fc99c9345301d908d15a9a953c
 }
+
+
