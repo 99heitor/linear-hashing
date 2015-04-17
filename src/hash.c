@@ -9,7 +9,7 @@ void updateHeader(){
 
 } 
 
-void insertEntry(FILE* indice, dataEntry new_entry){
+void insertEntry(FILE* indice, dataEntry *new_entry){
 	int i = 0,found = 0;
 
 	unsigned int nbucket = funcaoHash(new_entry->key);

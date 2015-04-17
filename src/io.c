@@ -11,7 +11,7 @@ void NewIndexFile (){
 
 	FILE* arquivozinho, *overflow;
 	char buffer[256*header[1]];
-
+	unsigned int firstFree = 0;
 	arquivozinho = fopen ("indice", "wb"); //cria arquivo "indice" que será nosso arquivo de índice
 
 	fwrite(header, 4, 6, arquivozinho); //escreve irformações do header no arquivo
@@ -25,7 +25,7 @@ void NewIndexFile (){
 	fclose(arquivozinho);
 
 	overflow = fopen ("overflow", "wb");
-	fwrite(&(0),4,1,overflow);
+	fwrite(&(firstFree),4,1,overflow);
 	fclose(overflow);
 }
 
@@ -60,6 +60,6 @@ void escreverBucket (FILE* indice, unsigned int bucketNumber, bucket *escrito) {
 	}
 	for (int i=0;i<28;i++)
 		fwrite (&(escrito->freeSpace[i]),1,1,indice);
-	
+
 	fwrite(&(escrito->overflow),4,1,indice);
 }
