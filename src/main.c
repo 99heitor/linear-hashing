@@ -10,6 +10,7 @@ int main(){
 
 
 	FILE* indice = fopen ("indice", "r+b");
+	FILE* overflow = fopen ("overflow", "r+b");
 	
 	for (int i=0;i<1;i++){
 		insertEntry((dataEntry){12,141},0);
@@ -21,11 +22,15 @@ int main(){
 
 	//printf("oi\n");
 
+for (int i = 0; i < 26; ++i)
+{
+	/* code */
 
-	//insertEntry(indice, &((dataEntry){31,1000}));
+	insertEntry(indice,overflow,&((dataEntry){31,1000}));
 	//testEntry = searchEntry(indice,50);
 	//printf("%u %u\n",testEntry->key,testEntry->rid);
-
+}
+	fclose(overflow);
 	fclose(indice);
 
 	return 0;
