@@ -32,7 +32,7 @@ int main(){
 	//testEntry = searchEntry(indice,50);
 	//printf("%u %u\n",testEntry->key,testEntry->rid);
 } */
-	removeEntry(indice, 10, 0);
+	removeEntry(indice, 11, 0);
 	fclose(overflow);
 	fclose(indice);
 

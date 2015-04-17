@@ -87,8 +87,8 @@ void removeEntry(FILE* indice, unsigned int key, int troca) {
 			temp->entries[i].rid = 0;
 			break;
 		}
-		escreverBucket(indice, funcaoHash(key), temp, 0);
 	}
+	escreverBucket(indice, funcaoHash(key), temp, 0);
 	//return &((dataEntry){0,0});
 }
 
