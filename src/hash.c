@@ -69,9 +69,9 @@ void insertEntry(FILE* indice, FILE* overflow, dataEntry* new_entry) {
 	}
 	if (!found){
 		while(!consegui) {
-			printf("oi\n");
+			//printf("oi\n");
 			if(new_entry_bucket->overflow == 0){	//se não existir bucket overflow
-				printf("oi2\n");
+				//printf("oi2\n");
 				new_overflow = malloc(sizeof(bucket));
 				new_overflow->entries[0].key = new_entry->key;
 				new_overflow->entries[0].rid = new_entry->rid;
@@ -86,11 +86,12 @@ void insertEntry(FILE* indice, FILE* overflow, dataEntry* new_entry) {
 				escreverBucket(indice,nbucket,new_entry_bucket,0);
 				escreverBucket(overflow, header[6],new_overflow,1);
 				header[6]++;
+				printf("Headerfree %d\n",header[6]);
 				updateHeader(indice);
 				consegui = 1;
 			}
 			else{		//se existir bucket overflow
-				printf("oi3\n");
+				//printf("oi3\n");
 				nOverflow = new_entry_bucket->overflow;
 				new_entry_bucket = recuperarBucket(overflow, new_entry_bucket->overflow,1);
 				i=0;

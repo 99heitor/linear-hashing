@@ -6,14 +6,15 @@ int main(){
 	//dataEntry* testEntry;
 
 	
-	//NewIndexFile();
+	NewIndexFile();
 
 
 	FILE* indice = fopen ("indice", "r+b");
 	FILE* overflow = fopen ("overflow", "r+b");
 	
 
-	for (int i=0;i<260;i++){
+	for (int i=0;i<30;i++){
+		printf("Entrada número %d\n",i);
 		insertEntry(indice,overflow,&((dataEntry){10,141}));
 	}
 	/*for (int i=0;i<30;i++){

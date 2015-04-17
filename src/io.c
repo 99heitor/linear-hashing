@@ -1,7 +1,7 @@
 #include "estruturas.h"	
 #include "io.h"
 
-unsigned int header[] = {50,4,0,0,112,4,0};
+unsigned int header[] = {50,4,0,0,112,4,1};
 
 
 void updateHeader(FILE* indice) {
