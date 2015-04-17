@@ -15,4 +15,4 @@ unsigned int funcaoHash(unsigned int);
 void insertEntry(FILE*, FILE*,dataEntry*); 
 void removeEntry(FILE*, unsigned int, int);
 dataEntry* searchEntry(FILE*,unsigned int,int);
-void split(); 
+void split(FILE*,FILE*); 
