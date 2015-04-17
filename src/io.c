@@ -3,6 +3,13 @@
 
 unsigned int header[] = {70,4,0,0,112,4,0};
 
+
+void updateHeader(FILE* indice) {
+	rewind(indice);
+	fwrite(header, 4, 7, indice); //escreve irformações do header no arquivo
+}
+
+
 unsigned int entryPosition(unsigned int bucketPos, int entryPos, int troca) {	
 	if (!troca)
 		return (HEADER_SIZE + bucketPos*(sizeof(bucket)) + entryPos*sizeof(dataEntry));
@@ -31,12 +38,11 @@ void NewIndexFile (){
 }
 
 
-bucket* recuperarBucket(FILE* indice, unsigned int bucketNumber,int troca) {
+bucket* recuperarBucket(FILE* indice,unsigned int bucketNumber,int troca) {
+	//extern FILE* indice;
 
 	unsigned int byte = entryPosition(bucketNumber,0,troca);
-
 	fseek(indice,byte,SEEK_SET);	
-
 	bucket* recuperado;
 	recuperado = malloc(sizeof(bucket));
 

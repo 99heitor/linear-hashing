@@ -1,7 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define HEADER_SIZE 28
+#define HEADER_SIZE 128
+
+//FILE *indice,*overflow;
 
 unsigned int header[7];
 //ratio
@@ -15,5 +17,5 @@ unsigned int header[7];
 bucket* recuperarBucket(FILE*, unsigned int,int);
 void escreverBucket (FILE*, unsigned int, bucket*,int);
 unsigned int entryPosition(unsigned int, int, int);
-
+void updateHeader(FILE*);
 void NewIndexFile();
