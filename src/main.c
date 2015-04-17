@@ -6,10 +6,10 @@ int main(){
 	//dataEntry* testEntry;
 
 	
-	//printf("O tamanho da coisa é: %zu \n",sizeof(bucket));
-	NewIndexFile();
+	//NewIndexFile();
 
-	FILE* indice = fopen ("indice", "r+b");
+
+	//FILE* indice = fopen ("indice", "r+b");
 	
 
 	/*for (int i=0;i<28;i++){
@@ -19,10 +19,11 @@ int main(){
 	//printf("oi\n");
 
 
-	insertEntry(indice, &((dataEntry){31,1000}));
+	//insertEntry(indice, &((dataEntry){31,1000}));
 	//testEntry = searchEntry(indice,50);
 	//printf("%u %u\n",testEntry->key,testEntry->rid);
 
-	fclose(indice);
+	//fclose(indice);
+
 	return 0;
 }
