@@ -13,18 +13,18 @@ unsigned int funcaoHash(unsigned int key) {
 	return ((key%mod)<next)?(key%mod):(key%(mod*2));
 }
 
-void insertEntry(FILE* indice, dataEntry new_entry){
+void insertEntry(FILE* indice, dataEntry* new_entry){
 	int i = 0,found = 0;
 
-	unsigned int nbucket = funcaoHash(new_entry.key);
+	unsigned int nbucket = funcaoHash(new_entry->key);
 
 	bucket* new_entry_bucket;
 	new_entry_bucket = recuperarBucket(indice, nbucket);
 
 	while ((i<28)&&(!found)) {
 		if (new_entry_bucket->freeSpace[i] == 0){
-			new_entry_bucket->entries[i].key = new_entry.key;
-			new_entry_bucket->entries[i].rid = new_entry.rid;
+			new_entry_bucket->entries[i].key = new_entry->key;
+			new_entry_bucket->entries[i].rid = new_entry->rid;
 			new_entry_bucket->freeSpace[i] = 1;
 			escreverBucket(indice, nbucket, new_entry_bucket);
 			found = 1;	

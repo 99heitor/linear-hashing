@@ -7,9 +7,10 @@ unsigned int entryPosition(unsigned int bucketPos, int entryPos) {
 
 void NewIndexFile (){
 
-	FILE* arquivozinho;
+	FILE *arquivozinho, *overflow;
 	int buffer[6];
 	char buffer2[256*4];
+	unsigned int v[] = {0};
 
 	arquivozinho = fopen ("indice", "wb"); //cria arquivo "sgbd" que será nosso arquivo de índice
 
@@ -27,6 +28,10 @@ void NewIndexFile (){
 	fwrite(buffer2, 1, 256*buffer[1], arquivozinho); //escreve conteúdo inicial dos buckets iniciais
 
 	fclose(arquivozinho);
+
+	overflow = fopen ("overflow", "wb");
+	fwrite(v,4,1,overflow);
+	fclose(overflow);
 }
 
 
@@ -50,14 +55,14 @@ bucket* recuperarBucket(FILE* indice, unsigned int bucketNumber) {
 	return recuperado;
 }
 		
-void escreverBucket (FILE* indice, unsigned int bucketNumber, bucket escrito) {
+void escreverBucket (FILE* indice, unsigned int bucketNumber, bucket *escrito) {
 	fseek(indice,entryPosition(bucketNumber,0),SEEK_SET);	
 	for (int i=0;i<28;i++) {
-		fwrite (&(recuperado->entries[i].key),4,1,indice);
-		fwrite (&(recuperado->entries[i].rid),4,1,indice);
+		fwrite (&(escrito->entries[i].key),4,1,indice);
+		fwrite (&(escrito->entries[i].rid),4,1,indice);
 	}
 	for (int i=0;i<28;i++)
-		fwrite (&(recuperado->freeSpace[i]),1,1,indice);
+		fwrite (&(escrito->freeSpace[i]),1,1,indice);
 
-	fwrite(&(recuperado->overflow),4,1,indice);
+	fwrite(&(escrito->overflow),4,1,indice);
 }
