@@ -11,7 +11,7 @@ unsigned int mod; //aplica-se a função mod mod e se o resultado for menor que 
 
 unsigned int funcaoHash(unsigned int);
 
-void insertEntry(FILE*, dataEntry, int); 
-void removeEntry(FILE*,unsigned int,int);
-dataEntry* searchEntry(FILE*,unsigned int key,int);
-void splitBucket(FILE*); 
+void insertEntry(dataEntry); 
+void removeEntry(unsigned int,int);
+dataEntry* searchEntry(unsigned int key,int);
+void splitBucket(); 
