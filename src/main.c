@@ -12,10 +12,8 @@ int main(){
 	FILE* indice = fopen ("indice", "r+b");
 	FILE* overflow = fopen ("overflow", "r+b");
 	
-	for (int i=0;i<30;i++){
+	for (int i=0;i<260;i++){
 		insertEntry(indice,overflow,&((dataEntry){10,141}));
-		insertEntry(indice,overflow,&((dataEntry){11,141}));
-
 	}
 
 	/*for (int i=0;i<28;i++){
@@ -23,11 +21,7 @@ int main(){
 	}*/
 
 	//printf("oi\n");
-/*
-for (int i = 0; i < 26; ++i)
 
-{
-*/	/* code */
 /*
 	insertEntry(indice,overflow,&((dataEntry){31,1000}));
 	//testEntry = searchEntry(indice,50);

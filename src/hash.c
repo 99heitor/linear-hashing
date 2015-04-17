@@ -4,7 +4,52 @@
 unsigned int funcaoHash(unsigned int key) {
 	return ((key%header[5])>header[2])?(key%header[5]):(key%(header[5]*2));
 }
+/*
 
+void insertEntry(FILE* indice, FILE* overflow, dataEntry* new_entry){
+
+	int found = 0,i,consegui;
+	unsigned int nbucket = funcaoHash(new_entry->key);
+	bucket *new_entry_bucket = recuperarBucket(indice,nbucket,0);
+
+	bucket* new_overflow;
+
+	while ((i<28)&&(!found)) {
+		if (!(new_entry_bucket->freeSpace[i])){ //se o espaço "está" vazio
+			new_entry_bucket->entries[i].key = new_entry->key;
+			new_entry_bucket->entries[i].rid = new_entry->rid;
+			new_entry_bucket->freeSpace[i] = 1;
+			escreverBucket(indice,nbucket,new_entry_bucket,0);
+		}
+		i++;
+	}
+	if (!found){
+		while(!consegui){
+			if (new_entry_bucket->overflow == 0){
+				new_overflow = malloc(sizeof(bucket));
+				new_overflow->entries[0].key = new_entry->key;
+				new_overflow->entries[0].rid = new_entry->rid;
+				new_overflow->freeSpace[0] = 1;
+				for (int j=1;j<28;j++){
+					new_overflow->entries[j].key = 0;
+					new_overflow->entries[j].rid = 0;
+					new_overflow->freeSpace[j] = 0;
+				}
+				new_overflow->overflow = 0;
+				new_entry_bucket->overflow = header[6];
+				escreverBucket(indice,nbucket,new_entry_bucket,0);
+				escreverBucket(overflow, header[6],new_overflow,1);
+				header[6]++;
+				updateHeader(indice);
+				consegui = 1;
+			}
+		}
+	}
+	header[3]++;
+	updateHeader(indice);
+	split(indice);
+}
+*/
 void insertEntry(FILE* indice, FILE* overflow, dataEntry* new_entry) {
 	int i = 0,found = 0, consegui = 0;
 	unsigned int nbucket, nOverflow;
@@ -35,7 +80,8 @@ void insertEntry(FILE* indice, FILE* overflow, dataEntry* new_entry) {
 					new_overflow->freeSpace[j] = 0;
 				}
 				new_overflow->overflow = 0;
-				new_entry_bucket->overflow = 1;
+				new_entry_bucket->overflow = header[6];
+				escreverBucket(indice,nbucket,new_entry_bucket,0);
 				escreverBucket(overflow, header[6],new_overflow,1);
 				header[6]++;
 				updateHeader(indice);
@@ -106,4 +152,5 @@ void split(FILE* indice){ //a treta
 			header[1] = header[1]*2;
 		}
 	}
+	updateHeader(indice);
 }
