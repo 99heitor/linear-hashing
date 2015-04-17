@@ -9,28 +9,31 @@ void updateHeader(){
 
 } 
 
-void insertEntry(FILE* indice, dataEntry new_entry){
+void insertEntry(FILE* indice, dataEntry new_entry,int troca){
 	int i = 0,found = 0;
-
-	unsigned int nbucket = funcaoHash(new_entry.key);
+	unsigned int nbucket;
+	if (!troca)
+		nbucket = funcaoHash(new_entry.key);
+	else
+		nbucket = header[6];
 
 	bucket* new_entry_bucket;
-	new_entry_bucket = recuperarBucket(indice, nbucket);
+	new_entry_bucket = recuperarBucket(indice, nbucket,troca);
 
 	while ((i<28)&&(!found)) {
 		if (new_entry_bucket->freeSpace[i] == 0){
 			new_entry_bucket->entries[i].key = new_entry.key;
 			new_entry_bucket->entries[i].rid = new_entry.rid;
 			new_entry_bucket->freeSpace[i] = 1;
-			escreverBucket(indice, nbucket, new_entry_bucket);
+			escreverBucket(indice, nbucket, new_entry_bucket,troca);
 			found = 1;	
 		}
 		i++;
 	}
 }
 
-dataEntry* searchEntry(FILE* indice, unsigned int key){
-	bucket* temp = recuperarBucket(indice,funcaoHash(key));
+dataEntry* searchEntry(FILE* indice, unsigned int key,int troca){
+	bucket* temp = recuperarBucket(indice,funcaoHash(key),troca);
 	for(int i=0;i<28;i++){
 		if (temp->entries[i].key == key)
 			return (temp->entries);
