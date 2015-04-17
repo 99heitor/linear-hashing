@@ -1,6 +1,8 @@
 #include "estruturas.h"	
 #include "io.h"
 
+unsigned int header[] = {70,4,0,0,112,4};
+
 unsigned int entryPosition(unsigned int bucketPos, int entryPos) {
 	return (HEADER_SIZE + bucketPos*(sizeof(bucket)) + entryPos*sizeof(dataEntry));
 }
@@ -8,23 +10,17 @@ unsigned int entryPosition(unsigned int bucketPos, int entryPos) {
 void NewIndexFile (){
 
 	FILE* arquivozinho;
-	int buffer[6];
-	char buffer2[256*4];
+	char buffer[256*header[1]];
 
-	arquivozinho = fopen ("indice", "wb"); //cria arquivo "sgbd" que será nosso arquivo de índice
+	arquivozinho = fopen ("indice", "wb"); //cria arquivo "indice" que será nosso arquivo de índice
 
-	buffer[0] = 70; //ratio
-	buffer[1] = 4;	//nBuckets
-	buffer[2] = 0;	//next
-	buffer[3] = 0;	//usedSlots
-	buffer[4] = 28*buffer[1];	//allSlots
-	buffer[5] = 4;	//mod
-	fwrite(buffer, 4, 6, arquivozinho); //escreve irformações do header no arquivo
+	fwrite(header, 4, 6, arquivozinho); //escreve irformações do header no arquivo
 	
-	for (int i=0;i<256*buffer[1];i++){
-		buffer2[i]=0;
+	for (int i=0;i<256*header[1];i++){
+		buffer[i]=0;
 	}
-	fwrite(buffer2, 1, 256*buffer[1], arquivozinho); //escreve conteúdo inicial dos buckets iniciais
+
+	fwrite(buffer, 1, 256*header[1], arquivozinho); //escreve conteúdo inicial dos buckets iniciais
 
 	fclose(arquivozinho);
 }
@@ -50,14 +46,15 @@ bucket* recuperarBucket(FILE* indice, unsigned int bucketNumber) {
 	return recuperado;
 }
 		
-void escreverBucket (FILE* indice, unsigned int bucketNumber, bucket escrito) {
+void escreverBucket (FILE* indice, unsigned int bucketNumber, bucket* escrito) {
 	fseek(indice,entryPosition(bucketNumber,0),SEEK_SET);	
 	for (int i=0;i<28;i++) {
-		fwrite (&(recuperado->entries[i].key),4,1,indice);
-		fwrite (&(recuperado->entries[i].rid),4,1,indice);
+		fwrite (&(escrito->entries[i].key),4,1,indice);
+		fwrite (&(escrito->entries[i].rid),4,1,indice);
 	}
 	for (int i=0;i<28;i++)
-		fwrite (&(recuperado->freeSpace[i]),1,1,indice);
+		fwrite (&(escrito->freeSpace[i]),1,1,indice);
 
-	fwrite(&(recuperado->overflow),4,1,indice);
+	fwrite(&(escrito->overflow),4,1,indice);
 }
+
