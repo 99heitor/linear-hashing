@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "estruturas.h"
 
-unsigned char ratio;
+unsigned int ratio;
 unsigned int nBuckets; //nº de buckets na rodada. Dobra quando next == nBuckets (ou algo assim)
 unsigned int next; //recebe (next+1)%nBuckets
 unsigned int usedSlots;	//aumenta em 1 quando insere entry 
