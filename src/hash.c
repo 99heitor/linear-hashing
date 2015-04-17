@@ -82,14 +82,8 @@ void insertEntry(FILE* indice, FILE* overflow, dataEntry* new_entry) {
 					new_overflow->freeSpace[j] = 0;
 				}
 				new_overflow->overflow = 0;
-<<<<<<< HEAD
 				new_entry_bucket->overflow = header[6];
 				escreverBucket(indice,nbucket,new_entry_bucket,0);
-=======
-				printf("%u\n",new_entry_bucket->overflow );
-				new_entry_bucket->overflow = 1;
-				printf("%u\n",new_entry_bucket->overflow );
->>>>>>> 9c2c850430f286fc99c9345301d908d15a9a953c
 				escreverBucket(overflow, header[6],new_overflow,1);
 				header[6]++;
 				updateHeader(indice);
@@ -139,11 +133,9 @@ void removeEntry(FILE* indice, unsigned int key, int troca) {
 		}
 		escreverBucket(indice, funcaoHash(key), temp, 0);
 	}
-<<<<<<< HEAD
+	header[3]--;
 	updateHeader(indice);
-=======
 	//return &((dataEntry){0,0});
->>>>>>> 9c2c850430f286fc99c9345301d908d15a9a953c
 }
 
 
